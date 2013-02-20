@@ -1,10 +1,15 @@
-from django.contrib.auth.models import User
+try:
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+except ImportError:
+    from django.contrib.auth.models import User
 from django.db import models
 from django.utils import simplejson as json
 from django.utils.translation import ugettext_lazy as _
 
 from loginza import signals
 from loginza.conf import settings
+
 
 class IdentityManager(models.Manager):
     def from_loginza_data(self, loginza_data):
